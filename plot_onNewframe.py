@@ -98,16 +98,11 @@ with mp_holistic.Holistic(min_detection_confidence=0.5, min_tracking_confidence=
         image2fill = img_.shape
         image2fill = np.zeros(image2fill, dtype=np.uint8)
         image2fill.fill(255)
-
-        # draw_landmarks(img_, coords)
         draw_landmarks(image2fill, coords)
         draw_landmarks(img_, coords)
         detect_obj = model(img_[..., ::-1])
         results = detect_obj.pandas().xywhn[0].to_dict(orient='records')
-        # empty_array = np.zeros(12)
         rect_bbox = detect_obj.pandas().xyxy[0].to_dict(orient='records')
-        # rect_coords = extract_coordinates(results)
-        # print(rect_bbox)
         l, t, r, b, text_to_display = draw_plots(img_, rect_bbox)
 
         cv2.imshow('Output', img_)
